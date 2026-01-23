@@ -1,7 +1,7 @@
 import BizError from '../error/biz-error';
 import orm from '../entity/orm';
 import { v4 as uuidv4 } from 'uuid';
-import { and, asc, desc, eq, sql } from 'drizzle-orm';
+import { and, asc, desc, eq, like, gte, lte, sql } from 'drizzle-orm';
 import saltHashUtils from '../utils/crypto-utils';
 import cryptoUtils from '../utils/crypto-utils';
 import emailUtils from '../utils/email-utils';
@@ -14,6 +14,8 @@ import { isDel, roleConst } from '../const/entity-const';
 import email from '../entity/email';
 import userService from './user-service';
 import KvConst from '../const/kv-const';
+
+import attService from './att-service';
 
 const publicService = {
 
@@ -159,6 +161,20 @@ const publicService = {
 		}
 
 	},
+
+async batchDelete(c, params) {
+  // const emailIdsRow = await orm(c)
+  //   .select({ emailId: email.emailId })
+  //   .from(email)
+  //   .all();
+  // const emailIds = emailIdsRow.map(row => row.emailId);
+
+  // if (emailIds.length === 0) {
+  //   return;
+  // }
+  // await attService.removeByEmailIds(c, emailIds);
+  await orm(c).delete(email).run();
+},
 
 	async genToken(c, params) {
 
