@@ -16,3 +16,8 @@ app.post('/public/addUser', async (c) => {
 	await publicService.addUser(c, await c.req.json());
 	return c.json(result.ok());
 });
+
+app.delete('/public/allEmail/batchDelete',async (c) => {
+	await publicService.batchDelete(c, c.req.query());
+	return c.json(result.ok());
+})
